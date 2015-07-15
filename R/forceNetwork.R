@@ -72,7 +72,7 @@
 #'
 #' @export
 forceNetwork <- function(Links, Nodes, Source, Target, Value, NodeID, url, pic,
-    Group, height = NULL, width = NULL, colourScale = "d3.scale.category20()",
+    Group, nodeColour, height = NULL, width = NULL, colourScale = "d3.scale.category20()",
     fontsize = 7, linkDistance = 50,
     linkWidth = "function(d) { return Math.sqrt(d.value); }", charge = -120,
     linkColour = "#666",opacity = 0.6)
@@ -100,6 +100,9 @@ forceNetwork <- function(Links, Nodes, Source, Target, Value, NodeID, url, pic,
     }
     if(!missing(pic)){
       NodesDF$pic <- Nodes[, pic]
+    }
+    if(!missing(nodeColour)){
+      NodesDF$colour <- Nodes[, nodeColour]
     }
     
     

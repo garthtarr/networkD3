@@ -10,6 +10,9 @@ HTMLWidgets.widget({
         .attr("width", width)
         .attr("height", height);
 
+    
+
+
     return d3.layout.force();
   },
 
@@ -23,6 +26,13 @@ HTMLWidgets.widget({
   },
 
   renderValue: function(el, x, force) {
+
+d3.selection.prototype.moveToFront = function() { 
+  return this.each(function() { 
+    this.parentNode.appendChild(this); 
+  }); 
+}; 
+
 
     // alias options
     var options = x.options;
@@ -96,7 +106,8 @@ HTMLWidgets.widget({
       .data(force.nodes())
       .enter().append("g")
       .attr("class", "node")
-      .style("fill", function(d) { return color(d.group); })
+      //.style("fill", function(d) { return color(d.group); })
+      .style("fill", function(d) { return d.colour; })
       .style("opacity", options.opacity)
       .on("mouseover", mouseover)
       .on("mouseout", mouseout)
@@ -159,11 +170,12 @@ HTMLWidgets.widget({
         });
     }
 
+
     function mouseover() {
       d3.select(this).select("circle").transition()
         .duration(750)
         .attr("r", 16);
-      d3.select(this).select("image").transition()
+      d3.select(this).select("image").moveToFront().transition()
         .duration(750)
       .attr("width", 90)
       .attr("x", -4)
@@ -176,6 +188,7 @@ HTMLWidgets.widget({
         .style("stroke-width", ".5px")
         .style("font", options.clickTextSize + "px serif")
         .style("opacity", 1);
+      d3.select(this).moveToFront();
     }
 
     function mouseout() {
@@ -188,6 +201,7 @@ HTMLWidgets.widget({
       .attr("height", 30)
       .attr("x", -12.5)
       .attr("y", -12.5);
+      d3.select(this).select("image").moveToFront();
       d3.select(this).select("text").transition()
         .style("opacity", 0);
     }
