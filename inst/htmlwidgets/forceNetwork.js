@@ -100,7 +100,7 @@ HTMLWidgets.widget({
     var link = svg.selectAll(".link")
       .data(force.links())
       .enter().append("line")
-      .attr("class", "link")
+      .attr("class", "link") // NEXT LINE HAS BEEN CHANGED 
       .style("stroke", function(d) { return d.colour ; }) // options.linkColour)
       .style("opacity", options.opacity)
       .style("stroke-width", eval("(" + options.linkWidth + ")"))
