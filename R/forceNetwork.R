@@ -184,6 +184,8 @@ forceNetwork <- function(Links,
                 names(NodesDF) <- c("name", "group")
                 nodesize = FALSE
         }
+        LinksDF <- data.frame(LinksDF, colour=linkColour)
+        LinksDF$colour = as.character(LinksDF$colour)
 
         # create options
         options = list(
